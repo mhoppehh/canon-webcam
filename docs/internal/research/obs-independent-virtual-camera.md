@@ -34,13 +34,13 @@ The cheapest change is **Route A**. The install cost is the same as today: OBS i
 
 ## What each route requires
 
-| Route | What we must build | What the user must install or approve | Proven on this machine |
-| --- | --- | --- | --- |
-| **A.** OBS, command line only | A scene collection JSON with one `browser_source`; a frame server on a fixed port | OBS in `/Applications`; one administrator approval of the OBS camera extension | **Yes.** OBS 33.0.0, extension `activated enabled`, device listed |
-| **B.** NDI Virtual Input owns the device | An NDI sender for each JPEG frame | NDI Tools (free); one administrator approval of the NDI camera extension | **No.** NDI Tools is not installed here |
-| **C.** Camera extension of our own | Host app, extension target, app group, pixel-buffer plumbing, activation request | App in `/Applications`; administrator approval; a signing team | **No.** See *Route C* |
-| **D.** DAL plugin of our own | `CMIOHardwarePlugInInterface` vtable, sample-buffer timing, own shared memory | A root write into `/Library/CoreMediaIO/Plug-Ins/DAL` | **No.** That directory is `root:wheel` |
-| **Today.** OBS plus obs-websocket | Already built | OBS, a WebSocket password, one administrator approval | **Yes** for the mechanism; the sink also needs OBS running |
+| Route                                    | What we must build                                                                | What the user must install or approve                                          | Proven on this machine                                            |
+| ---------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| **A.** OBS, command line only            | A scene collection JSON with one `browser_source`; a frame server on a fixed port | OBS in `/Applications`; one administrator approval of the OBS camera extension | **Yes.** OBS 33.0.0, extension `activated enabled`, device listed |
+| **B.** NDI Virtual Input owns the device | An NDI sender for each JPEG frame                                                 | NDI Tools (free); one administrator approval of the NDI camera extension       | **No.** NDI Tools is not installed here                           |
+| **C.** Camera extension of our own       | Host app, extension target, app group, pixel-buffer plumbing, activation request  | App in `/Applications`; administrator approval; a signing team                 | **No.** See _Route C_                                             |
+| **D.** DAL plugin of our own             | `CMIOHardwarePlugInInterface` vtable, sample-buffer timing, own shared memory     | A root write into `/Library/CoreMediaIO/Plug-Ins/DAL`                          | **No.** That directory is `root:wheel`                            |
+| **Today.** OBS plus obs-websocket        | Already built                                                                     | OBS, a WebSocket password, one administrator approval                          | **Yes** for the mechanism; the sink also needs OBS running        |
 
 ## Route A: OBS without obs-websocket
 
@@ -129,7 +129,7 @@ Costs:
 
 ## Route C: a camera extension of our own
 
-Apple documents the requirements in *Creating a camera extension with Core Media I/O*
+Apple documents the requirements in _Creating a camera extension with Core Media I/O_
 (<https://developer.apple.com/documentation/coremediaio/creating-a-camera-extension-with-core-media-i-o>).
 The host app needs two capabilities, **System Extension** and **App Groups**. The entitlements
 file contains:
@@ -162,7 +162,7 @@ Apple describes developer mode as a location bypass, not a signature bypass
 > When in developer mode, the system doesn't check the location of your system extension prior to
 > loading it.
 
-This machine refuses the command (see *Evidence from this machine*). Apple's advice for local
+This machine refuses the command (see _Evidence from this machine_). Apple's advice for local
 testing is to disable SIP. This machine must not do that.
 
 ### Paid membership: required
@@ -202,7 +202,7 @@ APP_GROUPS, INTER_APP_AUDIO, HEALTHKIT
 
 **Conclusion** A camera extension of our own needs a paid Apple Developer Program membership.
 The free Apple ID can sign ordinary macOS apps, but it cannot sign a system extension. See
-*What is still unknown*, item 1, for the one remaining test.
+_What is still unknown_, item 1, for the one remaining test.
 
 ### Unproven: notarisation with SIP on
 
@@ -212,7 +212,7 @@ Apple's system-extension debugging article states:
 > disabling SIP bypasses the notarization checks that the system normally performs.
 
 This sentence implies that with SIP enabled, an unnotarised extension does not load. It does not
-prove it. See *What is still unknown*, test 3.
+prove it. See _What is still unknown_, test 3.
 
 ## Route D: a DAL plugin of our own
 
@@ -247,13 +247,13 @@ This route is not recommended: it needs the most work and has the shortest life.
 
 ## Existing products to integrate instead
 
-| Product | Device type | Free | Accepts an external feed |
-| --- | --- | --- | --- |
-| **OBS Virtual Camera** | Camera extension inside OBS | Yes | Only through OBS |
-| **NDI Virtual Input** | Camera extension, signed by Vizrt | Yes | Yes, over NDI |
-| **akvirtualcamera** (Webcamoid) | DAL plugin, GPL-3.0 | Yes | Yes, through its own API |
-| **LemurCam** | Camera extension, MIT | Yes | No. It reads RTSP cameras itself |
-| **ManyCam** | Commercial app | Freemium | Yes, through the app |
+| Product                         | Device type                       | Free     | Accepts an external feed         |
+| ------------------------------- | --------------------------------- | -------- | -------------------------------- |
+| **OBS Virtual Camera**          | Camera extension inside OBS       | Yes      | Only through OBS                 |
+| **NDI Virtual Input**           | Camera extension, signed by Vizrt | Yes      | Yes, over NDI                    |
+| **akvirtualcamera** (Webcamoid) | DAL plugin, GPL-3.0               | Yes      | Yes, through its own API         |
+| **LemurCam**                    | Camera extension, MIT             | Yes      | No. It reads RTSP cameras itself |
+| **ManyCam**                     | Commercial app                    | Freemium | Yes, through the app             |
 
 Sources: <https://github.com/obsproject/obs-studio>,
 <https://docs.ndi.video/all/using-ndi/ndi-tools/ndi-tools-for-mac/virtual-input.md>,
@@ -380,11 +380,11 @@ the OBS dependency, which is a stated **revisit trigger** in ADR-0002.
 ## What is still unknown
 
 1. **Whether Xcode refuses a camera extension at build time for a Personal Team.** The cached
-   capability inventory says yes (see *Route C*). No build was attempted. Test: open the Xcode
-   *Camera Extension* template, select the Personal Team, build, and read the signing error.
+   capability inventory says yes (see _Route C_). No build was attempted. Test: open the Xcode
+   _Camera Extension_ template, select the Personal Team, build, and read the signing error.
 2. **Whether `com.apple.CMIOExtensionProvider` is the extension point identifier.** It is absent
    from Apple's article and from the OBS plist. Test: `plutil -p
-   <Extension>.appex/Contents/Info.plist` after a template build.
+<Extension>.appex/Contents/Info.plist` after a template build.
 3. **Whether an unnotarised, development-signed camera extension loads with SIP on.** Test: build
    the template, put the app in `/Applications`, activate the extension, then read
    `systemextensionsctl list`.
@@ -398,4 +398,4 @@ the OBS dependency, which is a stated **revisit trigger** in ADR-0002.
    camera in a **consumer application**.
 7. **Whether the current OBS sink now works end to end.** The device is present, so the earlier
    blocker is gone. Test: run `./target/release/camera-cli stream --sink virtual-camera
-   --config ./obs.toml` and open the device in FaceTime.
+--config ./obs.toml` and open the device in FaceTime.

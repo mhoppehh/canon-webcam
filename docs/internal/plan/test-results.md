@@ -19,18 +19,18 @@ Table 1 gives the test environment.
 
 **Table 1 — Test environment**
 
-| Item                 | Value                                 |
-| -------------------- | ------------------------------------- |
+| Item                 | Value                                   |
+| -------------------- | --------------------------------------- |
 | Computer             | Apple laptop with an Apple M4 processor |
-| Operating system     | macOS 26.6.2, build 25G83             |
-| Camera               | Canon EOS M50                         |
-| Camera serial number | Not recorded in this public document  |
-| Camera firmware      | 3-1.1.0                               |
-| USB port speed       | High Speed, 480 Mbit/s                 |
-| USB connection       | Through a USB 2.0 hub                  |
-| gphoto2 version      | 2.5.32                                 |
-| libgphoto2 version   | 2.5.34                                 |
-| Video software       | ffmpeg, Homebrew build                 |
+| Operating system     | macOS 26.6.2, build 25G83               |
+| Camera               | Canon EOS M50                           |
+| Camera serial number | Not recorded in this public document    |
+| Camera firmware      | 3-1.1.0                                 |
+| USB port speed       | High Speed, 480 Mbit/s                  |
+| USB connection       | Through a USB 2.0 hub                   |
+| gphoto2 version      | 2.5.32                                  |
+| libgphoto2 version   | 2.5.34                                  |
+| Video software       | ffmpeg, Homebrew build                  |
 
 NOTE: We had one computer only. The computer uses macOS. We did not have a Linux computer. We did not have a Windows computer.
 

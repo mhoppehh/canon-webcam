@@ -42,14 +42,14 @@ Read [Document 8](docs/user/08-device-compatibility.md) before you install this 
 
 Related documents:
 
-| Document           | Content                                                        |
-| ------------------ | -------------------------------------------------------------- |
-| `GLOSSARY.md`      | The words this document set uses.                              |
-| `docs/adr/`        | The architecture decisions and the evidence for them.          |
-| `docs/internal/`   | The development records: plan, tickets, research and results.  |
-| `LICENSE`          | The licence of this software.                                  |
-| `CONTRIBUTING.md`  | How to build, test and send a change.                          |
-| `SECURITY.md`      | How to report a security problem.                              |
+| Document          | Content                                                       |
+| ----------------- | ------------------------------------------------------------- |
+| `GLOSSARY.md`     | The words this document set uses.                             |
+| `docs/adr/`       | The architecture decisions and the evidence for them.         |
+| `docs/internal/`  | The development records: plan, tickets, research and results. |
+| `LICENSE`         | The licence of this software.                                 |
+| `CONTRIBUTING.md` | How to build, test and send a change.                         |
+| `SECURITY.md`     | How to report a security problem.                             |
 
 ## 4. Short procedure
 
@@ -101,4 +101,3 @@ This software uses the MIT licence. Read `LICENSE`.
 ## 9. Contributing
 
 Read `CONTRIBUTING.md` before you send a change. Report a security problem as `SECURITY.md` tells you.
-

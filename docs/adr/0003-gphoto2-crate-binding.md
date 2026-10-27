@@ -6,11 +6,11 @@ The capture layer binds libgphoto2 directly through the `gphoto2` crate (version
 
 The spike was run on 2026-10-27 against libgphoto2 2.5.34 with **no camera attached**, so it answers "can this binding express the operations" and not "does the M50 accept them". The crate source in `~/.cargo/registry/src/*/gphoto2-3.4.1` was read, and a program using the three operations was compiled and run against the installed library.
 
-| Capability the design needs | Public API in `gphoto2` 3.4.1 | Result |
-| --- | --- | --- |
-| Write the `output` property | `Camera::config_key::<RadioWidget>("output")`, `RadioWidget::set_choice`, `Camera::set_config` | Present |
+| Capability the design needs                            | Public API in `gphoto2` 3.4.1                                                                                              | Result  |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Write the `output` property                            | `Camera::config_key::<RadioWidget>("output")`, `RadioWidget::set_choice`, `Camera::set_config`                             | Present |
 | Press the viewfinder action `/main/actions/viewfinder` | `Camera::config_key::<Widget>(...)` then `ButtonWidget::press`, or `ToggleWidget::set_toggled`, or `TextWidget::set_value` | Present |
-| Return live view frames with their byte payload | `Camera::capture_preview` → `CameraFile::get_data` → `Box<[u8]>` | Present |
+| Return live view frames with their byte payload        | `Camera::capture_preview` → `CameraFile::get_data` → `Box<[u8]>`                                                           | Present |
 
 The compiled program ran, reported `libgphoto2: Some("2.5.34")` and `cameras detected: 0`.
 

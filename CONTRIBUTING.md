@@ -4,13 +4,13 @@ Read this document before you send a change.
 
 ## 1. Requirements
 
-| Item        | Value                                                        |
-| ----------- | ------------------------------------------------------------ |
-| Rust        | Version 1.98 or later.                                        |
-| macOS       | The only supported operating system for a feed.               |
-| libgphoto2  | Necessary to build the `camera-core` crate.                   |
-| pkg-config  | Necessary to find libgphoto2.                                 |
-| OBS Studio  | Necessary to run a feed. Not necessary to build or to test.   |
+| Item       | Value                                                       |
+| ---------- | ----------------------------------------------------------- |
+| Rust       | Version 1.98 or later.                                      |
+| macOS      | The only supported operating system for a feed.             |
+| libgphoto2 | Necessary to build the `camera-core` crate.                 |
+| pkg-config | Necessary to find libgphoto2.                               |
+| OBS Studio | Necessary to run a feed. Not necessary to build or to test. |
 
 Install the system packages:
 

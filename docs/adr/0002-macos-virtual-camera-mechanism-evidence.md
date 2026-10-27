@@ -34,7 +34,7 @@ OBS on macOS 15 and later is a camera extension; the DAL bundle in `Contents/Res
 ## Apple's primary sources
 
 - `CMIOHardwarePlugIn.h` in the macOS 26 SDK annotates the DAL plugin API `API_DEPRECATED("Use CMIOExtension instead", macos(10.7, 12.3))`.
-- *Creating a camera extension with Core Media I/O* requires `com.apple.developer.system-extension.install` and an app group on the host app, states that "only apps that reside in the `/Applications` directory can activate an extension", and that "a person with Admin privileges for the Mac must explicitly allow access to it in the Systems & Privacy screen".
+- _Creating a camera extension with Core Media I/O_ requires `com.apple.developer.system-extension.install` and an app group on the host app, states that "only apps that reside in the `/Applications` directory can activate an extension", and that "a person with Admin privileges for the Mac must explicitly allow access to it in the Systems & Privacy screen".
 
 ## Trial A — what a consumer application sees
 
