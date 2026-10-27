@@ -1,0 +1,21 @@
+[workspace]
+members = ["camera-core", "camera-cli"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.98"
+license = "MIT"
+description = "Canon EOS M50 live view as an operating-system camera"
+readme = "README.md"
+keywords = ["canon", "gphoto2", "webcam", "obs", "ptp"]
+categories = ["hardware-support", "command-line-utilities"]
+
+[workspace.lints.rust]
+# The macOS backend makes one AVFoundation call. `objc2-av-foundation` is not in
+# this offline registry, so the selectors that call needs are sent directly
+# through `objc2`. One module carries the foreign call and is the only place
+# that allows it: `camera-core/src/platform/macos/device_probe.rs`. Every other
+# item in the workspace is denied.
+unsafe_code = "deny"

@@ -1,0 +1,27 @@
+# Build output
+/target/
+/tmp/
+
+# Local configuration. Never commit a configuration file: it holds the OBS
+# WebSocket password. Start from canon-webcam.example.toml instead.
+obs.toml
+canon-webcam.toml
+*.local.toml
+.env
+
+# Internal working notes (legacy location; moved to docs/internal/)
+.scratch/
+
+# Editors
+.vscode/
+.idea/
+*.iml
+*.swp
+*~
+
+# Operating system
+.DS_Store
+._*
+
+# Backups
+**/*.rs.bk

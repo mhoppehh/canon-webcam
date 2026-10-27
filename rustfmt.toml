@@ -1,0 +1,4 @@
+# Pin the edition so a direct `rustfmt <file>` invocation formats the same way
+# as `cargo fmt`. Without this, rustfmt assumes edition 2015 for a standalone
+# file and disagrees with the editor on every save.
+edition = "2021"

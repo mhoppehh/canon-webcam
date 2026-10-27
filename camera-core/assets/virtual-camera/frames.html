@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>canon-webcam live view</title>
+    <style>
+      body {
+        background-color: rgba(0, 0, 0, 0);
+        margin: 0px auto;
+        overflow: hidden;
+      }
+      html,
+      canvas {
+        background-color: rgba(0, 0, 0, 0);
+      }
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="live-view"></canvas>
+    <script>
+      // One binary WebSocket message per frame: the camera's own JPEG, or a
+      // resized frame encoded once. The canvas takes its geometry from the first
+      // frame, so the page never guesses the frame size and a sink re-open at a
+      // new frame size needs no change here.
+      const canvas = document.getElementById('live-view');
+      const context = canvas.getContext('2d');
+      let socket = null;
+      let decoding = false;
+
+      function connect() {
+        const protocol = location.protocol === 'https:' ? 'wss://' : 'ws://';
+        socket = new WebSocket(protocol + location.host + '/frames');
+        socket.binaryType = 'arraybuffer';
+        socket.onmessage = (event) => {
+          // Drop rather than queue: a page that is still decoding the previous
+          // frame does not build a backlog, matching the bounded capture queue.
+          if (decoding) {
+            return;
+          }
+          decoding = true;
+          const blob = new Blob([event.data], { type: 'image/jpeg' });
+          createImageBitmap(blob)
+            .then((bitmap) => {
+              if (canvas.width !== bitmap.width || canvas.height !== bitmap.height) {
+                canvas.width = bitmap.width;
+                canvas.height = bitmap.height;
+              }
+              context.drawImage(bitmap, 0, 0);
+              bitmap.close();
+            })
+            .catch(() => {
+              // A frame that will not decode is not worth a page reload.
+            })
+            .finally(() => {
+              decoding = false;
+            });
+        };
+        socket.onclose = () => {
+          socket = null;
+          setTimeout(connect, 500);
+        };
+      }
+
+      connect();
+    </script>
+  </body>
+</html>

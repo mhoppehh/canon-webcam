@@ -1,0 +1,56 @@
+[package]
+name = "camera-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "PTP session, calibration window and measurement for Canon live view"
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+# Not published to a registry: this crate is built from source with the CLI.
+publish = false
+
+[features]
+default = ["gphoto2-binding"]
+# Binds libgphoto2 directly through the `gphoto2` crate, giving one owned
+# PTP session per run. See docs/adr/0003-gphoto2-crate-binding.md.
+gphoto2-binding = ["dep:gphoto2"]
+
+[dependencies]
+gphoto2 = { version = "3.4.1", optional = true }
+# Decodes JPEG live view frames into the one normalised pixel format the sink
+# layer accepts. Pure Rust, no runtime dependencies.
+jpeg-decoder = { version = "0.3.2", default-features = false }
+# Parses the TOML configuration file. The pipeline reads keys by name rather
+# than through a derived schema, so an unknown key can be reported by name.
+toml = { version = "0.8", default-features = false, features = ["parse", "display"] }
+
+[lints]
+workspace = true
+
+# The macOS platform backend. ADR-0002 makes OBS Virtual Camera the mechanism,
+# which means two WebSockets (our frame transport, and obs-websocket for
+# control), JSON, and one AVFoundation device enumeration.
+[target.'cfg(target_os = "macos")'.dependencies]
+# Base64 of the SHA-256 digests obs-websocket's challenge authentication needs,
+# and of the SHA-1 digest the frame transport's WebSocket handshake needs.
+base64 = "0.22"
+# Encodes a frame that was resized and therefore has no camera JPEG left to
+# forward. An un-resized frame is never re-encoded: ADR-0002 requires the
+# camera's own bytes to reach the page untouched.
+jpeg-encoder = "0.6"
+# The one AVFoundation call the `OBS Virtual Camera` device check makes.
+# `objc2-av-foundation` is not in this offline registry, so the four selectors
+# that check needs are sent directly.
+objc2 = "0.6"
+# Serialises obs-websocket v5 requests and reads its responses and events.
+serde_json = "1"
+# The WebSocket accept key of the frame transport's handshake.
+sha1 = "0.10"
+# obs-websocket's challenge authentication: SHA-256 over the password and salt.
+sha2 = "0.10"
+# The obs-websocket v5 client and the test that drives it. Only the blocking
+# client is used, with plain `ws://` on the loopback interface, so no TLS
+# feature is enabled.
+tungstenite = "0.28"

@@ -1,0 +1,33 @@
+# Example configuration for canon-webcam.
+#
+# Copy this file to canon-webcam.toml and put your own values in it.
+# Do not commit your copy: it holds the OBS WebSocket password.
+#
+#     cp canon-webcam.example.toml canon-webcam.toml
+#     chmod 600 canon-webcam.toml
+#
+# Document 6 in docs/user/06-configuration.md gives the full reference.
+
+mechanism = "obs-virtual-camera"
+pixel_format = "rgb24"
+upscale = false
+
+[macos]
+# OBS must stay in /Applications. OBS refuses to install its virtual camera
+# from any other directory.
+obs_app_path = "/Applications/OBS.app"
+
+# The address and port of the OBS WebSocket server. The port must agree with
+# the OBS setting Tools > WebSocket Server Settings.
+websocket_endpoint = "127.0.0.1:4455"
+
+# Replace this value with the password from the OBS WebSocket server settings.
+websocket_password = "your-password-here"
+
+# Where OBS writes its log files. Omit this key to use the default, which is
+# Library/Application Support/obs-studio/logs in your home directory. If you set
+# the key, use an absolute path: the program does not expand a leading "~".
+# obs_log_directory = "/absolute/path/to/obs-studio/logs"
+
+# Start OBS when it does not run.
+launch_obs = true

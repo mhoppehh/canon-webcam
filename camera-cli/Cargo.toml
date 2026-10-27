@@ -1,0 +1,22 @@
+[package]
+name = "camera-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Command line interface for the Canon M50 virtual camera"
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+# Not published to a registry: install it from source, as Document 2 describes.
+publish = false
+
+[[bin]]
+name = "camera-cli"
+path = "src/main.rs"
+
+[dependencies]
+camera-core = { path = "../camera-core" }
+
+[lints]
+workspace = true
