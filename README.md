@@ -8,6 +8,9 @@ The software makes a Canon EOS M50 camera operate as a camera for other computer
 
 The Canon EOS M50 has no USB video class mode. The software reads the **live view** of the camera over USB. Then it sends the live view to the macOS **virtual camera**.
 
+> [!WARNING]
+> This software is entirely vibe-coded. No person wrote the code by hand. An AI agent wrote the code from prompts and from test results. Treat the code as a prototype, not as production software. Examine the code before you use it for important work.
+
 ## 2. Status of this release
 
 | Item                     | Status                                                   |
