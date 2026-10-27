@@ -1,11 +1,5 @@
 # Canon M50 Virtual Camera
 
-| Item             | Value                                   |
-| ---------------- | --------------------------------------- |
-| Document number  | UG-000                                  |
-| Date             | 2026-10-27                              |
-| Writing standard | ASD-STE100 Simplified Technical English |
-
 ## 1. Purpose
 
 This document set tells you how to build, install and use this software.
